@@ -1,0 +1,85 @@
+:root {
+    --positive: #56876Dff;
+    --negative: #CA3C25;
+    
+    --dark1: #00478F;
+    --dark2: #5b6c5dff;
+    --light1: #56e39fff;
+    --light2: #dcdcdc;
+
+
+  }
+
+
+.add-form {
+    margin-bottom: 1em;
+    
+}
+
+.add-form fieldset {
+    border-radius: 0.4em;
+}
+
+.add-form legend {
+    font-weight: bold;
+}
+
+
+textarea {
+    width: 20em;
+    height: 5em;
+}
+
+input, textarea {
+    padding: 0;
+    margin: 0;
+}
+
+input, select {
+    width: 20em;
+    padding: 0.6em;
+    border-radius: 0.4em;
+    border: 2px solid black;
+}
+
+
+.data-table {
+    width: 100%;
+    border-radius: 0.4em;
+    border-width: 2px;
+    border-style: groove;
+    border-color: rgb(192, 192, 192);
+    border-image: initial;
+}
+
+.data-table tbody tr:nth-child(odd) {
+    background-color: var(--light2);
+}
+
+.data-table tr {
+    border: 1px solid black;
+}
+
+.form-row {
+    display: flex;
+    
+}
+
+.form-col {
+    width: 10em;
+    padding: 0.4em;
+}
+
+
+button {
+    min-width: 8em;
+    height: 2em;
+    background-color: var(--positive);
+    color: white;
+    border-radius: 0.4em;
+    border: 1px solid white;
+}
+
+.negative-button {
+    background-color: var(--negative);
+}

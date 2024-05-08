@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.content {
+    margin-top: -10em;
+    display: flex;
+    flex-direction: column;
+    width: 40em;
+    background-color: #111;
+    padding: 2em;
+    border-radius: 1em;
+}
+
+.content h1 {
+    margin-top: 0;
+}
+
+.signin-form {
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    padding: 1em;
+    align-items: center;
+}
+
+label {
+    width: 12em;
+}
+
+input {
+    width: 20em;
+    padding: 0.6em;
+    border-radius: 0.4em;
+}
+
