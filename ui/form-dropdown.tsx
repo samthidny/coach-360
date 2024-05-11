@@ -2,7 +2,7 @@
 type FormDropdownProps = {
     name: string,
     title: string,
-    data: Array,
+    data: any[],
     field: string
 
 }

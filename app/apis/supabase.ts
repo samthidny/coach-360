@@ -2,12 +2,15 @@ import { createClient } from '@/utils/supabase/server';
 import { Question } from '../models/question';
 import { Person } from '../models/person';
 import { Survey } from '../models/survey';
+import { Database } from '../schema';
+import { QueryData, SupabaseClient } from '@supabase/supabase-js';
 
 
 export async function getSupabaseClient() {
     'use server'
 
-    const client = await createClient();
+    const client: SupabaseClient<Database> = await createClient<Database>();
+    // const client = await createClient<Database>();
     return client;
 }
 
@@ -198,14 +201,11 @@ export async function getQuestionsForSurvey(surveyID: number): Promise<any[]> {
     const supabase = await getSupabaseClient();
     const { data, error } = await supabase
         .from('surveys')
-        .select('*, survey_questions(questions(*)))')
+        .select('*, survey_questions(questions(*))')
         .eq('id', surveyID)
         .limit(1)
         .single()
 
-    if (error) {
-        console.log('Error', error.details)
-    }
 
     if (data) {
         return data.survey_questions.map(question => question.questions);
@@ -241,7 +241,7 @@ export async function removeQuestionFromSurvey(surveyID: number, questionID: num
         .eq('survey_id', surveyID)
         .eq('question_id', questionID);
 
-        console.log('Server removeQuestionFromSurvey ', surveyID, questionID)
+    console.log('Server removeQuestionFromSurvey ', surveyID, questionID)
 
     if (error) {
         console.log('Error', error.details)
@@ -259,7 +259,7 @@ export async function getPeopleForSurvey(surveyID: number): Promise<any[]> {
     const supabase = await getSupabaseClient();
     const { data, error } = await supabase
         .from('surveys')
-        .select('*, survey_people(people(*)))')
+        .select('*, survey_people(people(*))')
         .eq('id', surveyID)
         .limit(1)
         .single()
@@ -272,7 +272,7 @@ export async function getPeopleForSurvey(surveyID: number): Promise<any[]> {
         console.log('getPeopleForSurvey', JSON.stringify(data))
 
         return data.survey_people.map(people => people.people);
-        
+
     }
 
     return []

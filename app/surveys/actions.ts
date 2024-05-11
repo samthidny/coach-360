@@ -19,7 +19,7 @@ export async function addSurveyAction(formData: FormData) {
 export async function deleteSurveyAction(formData: FormData) {
 
 
-    await deleteSurvey(formData.get('survey-id'));
+    await deleteSurvey(formData.get('survey-id') as string);
 
     revalidatePath('/', 'layout')
 
