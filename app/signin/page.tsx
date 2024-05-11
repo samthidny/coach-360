@@ -6,8 +6,8 @@ import { useSearchParams } from 'next/navigation'
 
 export default function LoginPage() {
 
-  const searchParams = useSearchParams()
-  const route = searchParams.get('route') || '';
+  // const searchParams = useSearchParams()
+  // const route = searchParams.get('route') || '';
 
 
   return (
@@ -22,7 +22,7 @@ export default function LoginPage() {
           <div className="row">
             <label htmlFor="password">Password:</label>
             <input id="password" name="password" type="password" required defaultValue="Password123" />
-            <input type="hidden" name="route" value={route} />
+            {/* <input type="hidden" name="route" value={route} /> */}
           </div>
           <div className="row">
             <button formAction={login}>Log in</button>
