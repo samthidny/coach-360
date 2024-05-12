@@ -3,6 +3,8 @@ import { getPeople, getQuestionsForSurvey, getSurveys } from "../apis/supabase";
 import { addSurveyAction, deleteSurveyAction } from "./actions";
 import { FormField } from "@/ui/form-field";
 import { FormDropdown } from "@/ui/form-dropdown";
+import { NewSurveyForm } from "@/ui/NewSurveyForm";
+import { ServerForm } from "@/ui/ServerForm";
 
 export default async function Surveys() {
 
@@ -28,9 +30,10 @@ export default async function Surveys() {
     <div>
       <h1>My Surveys</h1>
 
-      <form className="add-form">
-        <fieldset>
-          <legend>Add new survey</legend>
+      {/* <NewSurveyForm people={people} /> */}
+
+      <ServerForm title="Server Form" serverAction={addSurveyAction}>
+        <div>
           <div className="form-row">
             <div className="form-col">
               <label>Survey Name</label>
@@ -47,15 +50,8 @@ export default async function Surveys() {
               <FormDropdown data={people} field="email" title="Appraisee" name="appraisee_id"></FormDropdown>
             </div>
           </div>
-          <div className="form-row">
-            <div className="form-col">
-            </div>
-            <div className="form-col">
-              <button formAction={addSurveyAction}>Create Survey</button>
-            </div>
-          </div>
-        </fieldset>
-      </form>
+        </div>
+      </ServerForm>
 
       <table className="data-table">
         <tbody>

@@ -7,7 +7,6 @@ import { getSupabaseClient } from '../apis/supabase'
 export async function login(formData: FormData) {
   'use server'
 
-
   const form = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
