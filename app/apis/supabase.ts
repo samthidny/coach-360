@@ -159,7 +159,9 @@ export async function getSurveys(): Promise<any[]> {
     const supabase = await getSupabaseClient();
     const { data, error } = await supabase
         .from('surveys')
-        .select('id, name, appraisee_id)')
+        .select('id, name, appraisee_id, people:appraisee_id(id, firstname, surname, email))')
+
+    console.log('getSurveys', data);
 
     if (error) {
         console.log('Error', error.details)

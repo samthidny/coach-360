@@ -83,3 +83,7 @@ button {
 .negative-button {
     background-color: var(--negative);
 }
+
+button[disabled] {
+    background-color: grey;
+}

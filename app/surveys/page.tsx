@@ -1,38 +1,20 @@
 import Link from "next/link";
 import { getPeople, getQuestionsForSurvey, getSurveys } from "../apis/supabase";
 import { addSurveyAction, deleteSurveyAction } from "./actions";
-import { FormField } from "@/ui/form-field";
 import { FormDropdown } from "@/ui/form-dropdown";
-import { NewSurveyForm } from "@/ui/NewSurveyForm";
 import { ServerForm } from "@/ui/ServerForm";
+import { TableForm } from "@/ui/TableForm";
 
 export default async function Surveys() {
 
   const surveys = await getSurveys();
-
   const people = await getPeople()
-
-
-  // console.log("Surveys Page", people);
-  // const list = surveys.map((survey) => (
-  //   <p key={survey.id}>
-  //     <Link href={`/survey/${survey.id}`}>{survey.name}</Link>
-  //     {survey.name} {survey.appraisee_id}
-  //   </p>
-  // ));
-
-  const list = surveys.map((survey) => <tr key={survey.id}><td><Link href={`/survey/${survey.id}`}>{survey.name}</Link></td><td>{survey.appraisee_id}</td><td><form><input name="survey-id" type="hidden" defaultValue={survey.id}></input><button className="negative-button" formAction={deleteSurveyAction}>Delete</button></form></td></tr>)
-
-
-  const data = [{ id: 1, name: 'Poop' }]
+  const list = surveys.map((survey) => <tr key={survey.id}><td><Link href={`/survey/${survey.id}`}>{survey.name}</Link></td><td>{survey.people.email}</td><td><TableForm serverAction={deleteSurveyAction} buttonLabel={"Delete Survey"}><><input name="survey-id" type="hidden" defaultValue={survey.id}></input></></TableForm></td></tr>)
 
   return (
     <div>
       <h1>My Surveys</h1>
-
-      {/* <NewSurveyForm people={people} /> */}
-
-      <ServerForm title="Server Form" serverAction={addSurveyAction}>
+      <ServerForm title="Add New Survey" serverAction={addSurveyAction} submitLabel="Add Survey">
         <div>
           <div className="form-row">
             <div className="form-col">

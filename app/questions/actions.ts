@@ -5,7 +5,7 @@ import { addQuestion, deleteQuestion } from "../apis/supabase";
 
 export async function addQuestionAction(formData: FormData) {
 
-    addQuestion(formData.get('question') as string);
+    await addQuestion(formData.get('question') as string);
 
     revalidatePath('/', 'layout')
     

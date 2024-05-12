@@ -1,6 +1,7 @@
 import { FormDropdown } from "@/ui/form-dropdown";
 import { getPeople, getPeopleForSurvey, getQuestions, getQuestionsForSurvey, getSurvey, getSurveys } from "../../apis/supabase";
 import { addPersonToSurveyAction, addQuestionToSurveyAction, removePersonAction, removeQuestionAction } from "./actions";
+import { TableForm } from "@/ui/TableForm";
 
 export default async function Surveys({ params }: { params: { surveyID: number } }) {
 
@@ -18,12 +19,7 @@ export default async function Surveys({ params }: { params: { surveyID: number }
   const allPeople = await getPeople();
   const allAppraisers = allPeople.filter(person => person.id !== appraisee.id);
   
-
-
-  console.log("Survey people", people);
-
-
-  const questionsList = questions.map((question) => <tr key={question.id}><td>{question.question}</td><td><form><input name="survey-id" type="text" defaultValue={surveyID}></input><input name="question-id" type="text" defaultValue={question.id}></input><button className="negative-button" formAction={removeQuestionAction}>Remove</button></form></td></tr>)
+  const questionsList = questions.map((question) => <tr key={question.id}><td>{question.question}</td><td><TableForm serverAction={removeQuestionAction} buttonLabel={"Remove Question"}><><input name="survey-id" type="hidden" defaultValue={surveyID}></input><input name="question-id" type="hidden" defaultValue={question.id}></input></></TableForm></td></tr>)
 
   const peopleList = people.map((person) => <tr key={person.id}><td>{person.email}</td><td><form><input name="people-id" type="hidden" defaultValue={person.id}></input><button className="negative-button" formAction={removePersonAction}>Remove</button></form></td></tr>)
 
@@ -64,10 +60,6 @@ export default async function Surveys({ params }: { params: { surveyID: number }
           {questionsList}
         </tbody>
       </table>
-
-
-
-
 
       <form className="add-form">
         <fieldset>

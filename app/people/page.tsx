@@ -1,5 +1,7 @@
+import { ServerForm } from "@/ui/ServerForm";
 import { getPeople, getQuestions } from "../apis/supabase";
 import { addPersonAction, deletePersonAction } from "./actions";
+import { TableForm } from "@/ui/TableForm";
 
 export default async function Questions() {
   const people = await getPeople();
@@ -8,7 +10,7 @@ export default async function Questions() {
 
 
   const list = people.map((person) =>
-    <tr key={person.id}><td>{person.firstname}</td><td>{person.surname}</td><td>{person.email}</td><td><form><input name="people-id" type="hidden" defaultValue={person.id}></input><button className="negative-button" formAction={deletePersonAction}>Delete</button></form></td></tr>
+    <tr key={person.id}><td>{person.firstname}</td><td>{person.surname}</td><td>{person.email}</td><td><TableForm serverAction={deletePersonAction} buttonLabel={"Delete Person"}><><input name="people-id" type="hidden" defaultValue={person.id}></input></></TableForm></td></tr>
   );
 
 
@@ -16,9 +18,9 @@ export default async function Questions() {
     <div>
       <h1>People</h1>
 
-      <form className="add-form">
-        <fieldset>
-          <legend>Add new person</legend>
+      <ServerForm title="Add New Person" serverAction={addPersonAction} submitLabel="Add Person">
+        <>
+
           <div className="form-row">
             <div className="form-col">
               <label htmlFor="first-name">Firstname</label>
@@ -46,18 +48,12 @@ export default async function Questions() {
           <div className="form-row">
             <div className="form-col">
             </div>
-            <div className="form-col">
-              <button formAction={addPersonAction}>Add Person</button>
-            </div>
           </div>
-        </fieldset>
 
-      </form>
+        </>
+      </ServerForm>
 
       <table className="data-table">
-        <caption>
-          People
-        </caption>
         <thead>
           <tr>
             <th scope="col">Firstname</th>
