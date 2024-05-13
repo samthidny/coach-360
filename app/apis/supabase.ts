@@ -200,6 +200,9 @@ export async function getSurvey(surveyID: number): Promise<any> {
 
 export async function getQuestionsForSurvey(surveyID: number): Promise<any[]> {
     'use server'
+
+    console.log('getQuestions for survey')
+
     const supabase = await getSupabaseClient();
     const { data, error } = await supabase
         .from('surveys')
@@ -208,6 +211,7 @@ export async function getQuestionsForSurvey(surveyID: number): Promise<any[]> {
         .limit(1)
         .single()
 
+        console.log(data, error)
 
     if (data) {
         return data.survey_questions.map(question => question.questions);
@@ -228,6 +232,8 @@ export async function addQuestionToSurvey(surveyID: number, questionID: number) 
     if (error) {
         console.log('Error', error.details)
     }
+
+    console.log('addQuestionToSurvey')
 
     return true;
 }
@@ -251,6 +257,8 @@ export async function removeQuestionFromSurvey(surveyID: number, questionID: num
 
     return true;
 }
+
+
 
 
 
@@ -289,6 +297,23 @@ export async function addPersonToSurvey(surveyID: number, peopleID: number) {
         .from('survey_people')
         .insert({ survey_id: surveyID, people_id: peopleID })
 
+    if (error) {
+        console.log('Error', error.details)
+    }
+
+    return true;
+}
+
+export async function removePersonFromSurvey(surveyID: number, peopleID: number) {
+    'use server'
+    const supabase = await getSupabaseClient();
+    const { error } = await supabase
+        .from('survey_people')
+        .delete()
+        .eq('survey_id', surveyID)
+        .eq('people_id', peopleID);
+
+    
     if (error) {
         console.log('Error', error.details)
     }

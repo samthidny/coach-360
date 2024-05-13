@@ -1,9 +1,11 @@
 'use server'
 
 import { revalidatePath } from "next/cache";
-import { addPersonToSurvey, addQuestionToSurvey, removeQuestionFromSurvey } from "../../apis/supabase";
+import { addPersonToSurvey, addQuestionToSurvey, removePersonFromSurvey, removeQuestionFromSurvey } from "../../apis/supabase";
 
 export async function addQuestionToSurveyAction(formData: FormData) {
+
+    console.log('Add question to survey action', formData)
 
     const surveyID = formData.get('survey-id') as string;
     const questionID = formData.get('question-id') as string;
@@ -41,6 +43,12 @@ export async function removeQuestionAction(formData: FormData) {
 }
 
 export async function removePersonAction(formData: FormData) {
-    console.log('Remove person from survey')
+    console.log('Remove person from survey', formData)
+
+    const surveyID = formData.get('survey-id') as string;
+    const peopleID = formData.get('people-id') as string;
+    await removePersonFromSurvey(parseInt(surveyID), parseInt(peopleID));
+
+    revalidatePath('/', 'layout')
 }
 
